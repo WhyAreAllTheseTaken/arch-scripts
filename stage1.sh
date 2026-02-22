@@ -61,7 +61,4 @@ echo "Copying stage2..."
 cp ./stage2.sh /mnt/root/stage2.sh
 
 arch-chroot /mnt /root/stage2.sh $efiname
-unmount /mnt/boot
-unmount /mnt
-swapoff $swapname
 
