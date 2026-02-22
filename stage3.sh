@@ -45,19 +45,7 @@ systemctl enable ip6tables.service
 systemctl start iptables.service
 systemctl start ip6tables.service
 
-echo "Configuring users..."
-read -p "Username: " username
-useradd -m -G wheel -s /usr/bin/zsh $username
-passwd $username
-
-echo "Disabling root login..."
-passwd -l root
-
-echo "Adding login delay on fail..."
-echo "auth optional pam_faildelay.so delay=1000000" > /etc/pam.d/system-login
-
 echo "Cleaning up..."
-rm /root/.bashrc
 rm /root/stage2.sh
 rm /root/stage3.sh
 
