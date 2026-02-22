@@ -3,7 +3,8 @@
 set -e
 
 echo "Configuring firewall..."
-insmod ip_tables
+iptables -F
+iptables -X
 iptables -N TCP
 iptables -N UDP
 iptables -P OUTPUT ACCEPT
@@ -28,12 +29,13 @@ iptables -A INPUT -j REJECT --reject-with icmp-proto-unreachable
 iptables -A TCP -p tcp --dport 22 -j ACCEPT
 iptables-save -f /etc/iptables/iptables.rules
 echo "Configuring IPv6 firewall..."
+ip6tables -F
+ip6tables -X
+cp /etc/iptables/iptables.rules /etc/iptables/ip6tables.rules
 ip6tables -A INPUT -p ipv6-icmp --icmpv6-type 128 -m conntrack --ctstate NEW -j ACCEPT
 ip6tables -A INPUT -s fe80::/10 -p ipv6-icmp -j ACCEPT
 ip6tables -A INPUT -p udp --sport 547 --dport 546 -j ACCEPT
 ip6tables-save -f /etc/iptables/ip6tables.rules
-
-cp /etc/iptables/iptables.rules /etc/iptables/ip6tables.rules
 
 echo "Final rules:"
 cat /etc/iptables/iptables.rules
@@ -48,7 +50,4 @@ systemctl start ip6tables.service
 echo "Cleaning up..."
 rm /root/stage2.sh
 rm /root/stage3.sh
-
-echo "Rebooting..."
-systemctl reboot
 
