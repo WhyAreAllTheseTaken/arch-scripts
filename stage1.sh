@@ -39,14 +39,14 @@ mount $partname /mnt
 mount --mkdir $efiname /mnt/boot
 swapon $swapname
 
-packages=base linux-hardened linux-firmware btrfs-progs networkmanager neovim sudo iptables yay zsh
+packages="base linux-hardened linux-firmware btrfs-progs networkmanager neovim sudo iptables yay zsh"
 
 read -p "AMD? " -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
-    packages=$packages intel-ucode
+    packages="$packages intel-ucode"
 then
-    packages=$packages amd-ucode
+    packages="$packages amd-ucode"
 fi
 
 echo "Installing base..."
