@@ -14,6 +14,7 @@ read -p "Hostname: " hostname
 echo $HOSTNAME > /etc/hostname
 
 echo "Configuring firewall..."
+insmod ip_tables
 iptables -N TCP
 iptables -N UDP
 iptables -P OUTPUT ACCEPT
