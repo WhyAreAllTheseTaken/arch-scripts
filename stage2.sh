@@ -16,6 +16,7 @@ echo $HOSTNAME > /etc/hostname
 echo "Configuring sudo..."
 mkdir -p /etc/sudoers.
 echo "%wheel      ALL=(ALL:ALL) ALL" > /etc/sudoers.d/10-wheel
+echo "installer   ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/20-installer
 
 echo "Creating a user for makepkg..."
 useradd -m -G wheel installer
@@ -30,6 +31,7 @@ cd ..
 cd /root
 echo "Removing makepkg user..."
 userdel -r installer
+rm /etc/sudoers.d/20-installer
 
 echo "Configuring yay..."
 yay -Y --gendb
