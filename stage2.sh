@@ -55,7 +55,13 @@ systemctl enable ip6tables.service
 systemctl start iptables.service
 systemctl start ip6tables.service
 
+echo "Installing yay..."
+git clone https://aur.archlinux.org/yay-bin.git
+cd yay-bin
+makepkg -si
+cd ..
 echo "Configuring yay..."
+yay -Y --gendb
 yay -Y --devel --save
 
 echo "Configuring sudo..."

@@ -1,6 +1,6 @@
 ./stage1.sh
-unmount /mnt/boot
-unmount /mnt
+umount /mnt/boot
+umount /mnt
 swapoff $swapname
 
 
