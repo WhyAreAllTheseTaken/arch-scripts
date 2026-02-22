@@ -2,10 +2,14 @@
 
 loadkeys uk
 echo "Checking network"
+ip link
 ping ping.archlinux.org
 
 echo "Updating time"
 timedatectl
+
+echo "Updating package database..."
+pacman -Fy
 
 echo "Setting up disks..."
 fdisk -l
@@ -34,7 +38,7 @@ mount $partname /mnt
 mount --mkdir $efiname /mnt/boot
 swapon $swapname
 
-packages=base linux linux-firmware btrfs-progs networkmanager neovim man-db man-pages texinfo
+packages=base linux-hardened linux-firmware btrfs-progs networkmanager neovim sudo iptables yay
 
 read -p "AMD? " -n 1 -r
 echo    # (optional) move to a new line
