@@ -60,6 +60,9 @@ genfstab -U /mnt >> /mnt/etc/fstab
 echo "Copying stage2..."
 cp ./stage2.sh /mnt/root/stage2.sh
 
+echo "Copying stage3..."
+cp ./stage3.sh /mnt/root/stage3.sh
+
 arch-chroot /mnt /root/stage2.sh $efiname || true
 swapoff $swapname
 
