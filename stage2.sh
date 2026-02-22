@@ -29,7 +29,8 @@ cd yay-bin
 su installer -c "makepkg -si"
 cd ..
 cd /root
-echo "Removing makepkg user sudo access..."
+echo "Removing makepkg user..."
+userdel -r installer
 rm /etc/sudoers.d/20-installer
 
 echo "Configuring yay..."
