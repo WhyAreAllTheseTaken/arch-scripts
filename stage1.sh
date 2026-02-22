@@ -1,15 +1,20 @@
 #!/usr/bin/bash
 
+set -e
+
 loadkeys uk
 echo "Checking network"
 ip link
-ping ping.archlinux.org
+ping ping.archlinux.org || true
 
 echo "Updating time"
 timedatectl
 
 echo "Updating package database..."
 pacman -Fy
+
+echo "Installing dependencies..."
+pacman -Sy btrfs-progs
 
 echo "Setting up disks..."
 fdisk -l
@@ -18,8 +23,7 @@ read -p "Disk: " disk
 fdisk $disk
 
 read -p "Main: " partname 
-pacman -S btrfs-progs
-mkfs.btrfs -L boot $partname
+mkfs.btrfs -f -L system $partname
 
 read -p "Swap: " swapname 
 mkswap $swapname
@@ -38,7 +42,7 @@ mount $partname /mnt
 mount --mkdir $efiname /mnt/boot
 swapon $swapname
 
-packages=base linux-hardened linux-firmware btrfs-progs networkmanager neovim sudo iptables yay
+packages=base linux-hardened linux-firmware btrfs-progs networkmanager neovim sudo iptables yay zsh
 
 read -p "AMD? " -n 1 -r
 echo    # (optional) move to a new line

@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+set -e
+
 efiname=$1
 
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
@@ -75,7 +77,7 @@ echo "Adding login delay on fail..."
 echo "auth optional pam_faildelay.so delay=1000000" > /etc/pam.d/system-login
 
 echo "Setting up grub..."
-pacman -S grub efibootmgr grub-btrfs os-prober
-grub-install --target=x86_64-efi --efi-directory=$efiname --removeable --bootloader-id=GRUB --modules="tpm" --disable-shim-lock
+pacman -Sy grub efibootmgr grub-btrfs os-prober
+grub-install --target=x86_64-efi --efi-directory=$efiname --removable --bootloader-id=GRUB --modules="tpm" --disable-shim-lock
 grub-mkconfig -o /boot/grub/grub.cfg
 
