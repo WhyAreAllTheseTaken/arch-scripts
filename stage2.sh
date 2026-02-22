@@ -38,7 +38,7 @@ yay -Y --devel --save
 
 echo "Setting up grub..."
 pacman --noconfirm -Sy grub efibootmgr grub-btrfs os-prober
-grub-install --target=x86_64-efi --efi-directory=/mnt/boot --removable --bootloader-id=GRUB --modules="tpm" --disable-shim-lock
+grub-install --target=x86_64-efi --efi-directory=/boot --removable --bootloader-id=GRUB --modules="tpm" --disable-shim-lock
 grub-mkconfig -o /boot/grub/grub.cfg
 
 echo "Configuring next boot..."
