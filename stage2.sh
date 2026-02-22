@@ -34,7 +34,6 @@ rm /etc/sudoers.d/20-installer
 rm -rfv /tmp/yay-bin
 
 echo "Configuring yay..."
-yay -Y --gendb
 yay -Y --devel --save
 
 echo "Setting up grub..."
