@@ -55,12 +55,8 @@ systemctl enable ip6tables.service
 systemctl start iptables.service
 systemctl start ip6tables.service
 
-echo "Configuring pacman..."
-pacman -Su
-
 echo "Configuring yay..."
 yay -Y --devel --save
-yay
 
 echo "Configuring sudo..."
 echo "%wheel      ALL=(ALL:ALL) ALL" > /etc/sudoers.d/10-wheel

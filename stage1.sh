@@ -10,11 +10,8 @@ ping ping.archlinux.org || true
 echo "Updating time"
 timedatectl
 
-echo "Updating package database..."
-pacman -Fy
-
 echo "Installing dependencies..."
-pacman -Sy btrfs-progs
+pacman --noconfirm -Sy btrfs-progs
 
 echo "Setting up disks..."
 fdisk -l
