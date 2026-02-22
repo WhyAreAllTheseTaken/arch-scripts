@@ -13,11 +13,24 @@ echo "KEYMAP=uk" > /etc/vconsole.conf
 read -p "Hostname: " hostname
 echo $HOSTNAME > /etc/hostname
 
+echo "Configuring sudo..."
+mkdir -p /etc/sudoers.
+echo "%wheel      ALL=(ALL:ALL) ALL" > /etc/sudoers.d/10-wheel
+
+echo "Creating a user for makepkg..."
+useradd -m -G wheel installer
+
 echo "Installing yay..."
+cd /home/installer
 git clone https://aur.archlinux.org/yay-bin.git
+chown -R installer yay-bin
 cd yay-bin
-makepkg -si
+su installer -c "makepkg -si"
 cd ..
+cd /root
+echo "Removing makepkg user..."
+userdel -r installer
+
 echo "Configuring yay..."
 yay -Y --gendb
 yay -Y --devel --save

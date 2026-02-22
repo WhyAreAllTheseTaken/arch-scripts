@@ -45,9 +45,6 @@ systemctl enable ip6tables.service
 systemctl start iptables.service
 systemctl start ip6tables.service
 
-echo "Configuring sudo..."
-echo "%wheel      ALL=(ALL:ALL) ALL" > /etc/sudoers.d/10-wheel
-
 echo "Configuring users..."
 read -p "Username: " username
 useradd -m -G wheel -s /usr/bin/zsh $username
