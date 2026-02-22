@@ -19,7 +19,7 @@ echo "%wheel      ALL=(ALL:ALL) ALL" > /etc/sudoers.d/10-wheel
 echo "installer   ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/20-installer
 
 echo "Creating a user for makepkg..."
-useradd -m -G wheel installer
+useradd -m installer
 
 echo "Installing yay..."
 cd /home/installer
@@ -29,8 +29,7 @@ cd yay-bin
 su installer -c "makepkg -si"
 cd ..
 cd /root
-echo "Removing makepkg user..."
-userdel -r installer
+echo "Removing makepkg user sudo access..."
 rm /etc/sudoers.d/20-installer
 
 echo "Configuring yay..."
