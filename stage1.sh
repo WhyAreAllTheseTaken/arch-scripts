@@ -19,12 +19,15 @@ fdisk -l
 read -p "Disk: " disk
 fdisk $disk
 
+fdisk -l
 read -p "Main: " partname 
 mkfs.btrfs -f -L system $partname
 
+fdisk -l
 read -p "Swap: " swapname 
 mkswap $swapname
 
+fdisk -l
 read -p "EFI: " efiname 
 
 read -p "Overwrite EFI? " -n 1 -r
