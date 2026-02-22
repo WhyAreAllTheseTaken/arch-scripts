@@ -22,20 +22,23 @@ echo "Creating a user for makepkg..."
 useradd -m installer
 
 echo "Installing yay..."
-cd /home/installer
+cd /tmp
 git clone https://aur.archlinux.org/yay-bin.git
 chown -R installer yay-bin
 cd yay-bin
 su installer -c "makepkg -si"
-cd ..
 cd /root
 echo "Removing makepkg user..."
-userdel -r installer
-rm /etc/sudoers.d/20-installer
+rm /tmp/yay-bin
 
 echo "Configuring yay..."
 yay -Y --gendb
 yay -Y --devel --save
+
+echo "Removing yay user"
+userdel -r installer
+rm /etc/sudoers.d/20-installer
+rm -rv /tmp/yay-bin
 
 echo "Setting up grub..."
 pacman --noconfirm -Sy grub efibootmgr grub-btrfs os-prober
