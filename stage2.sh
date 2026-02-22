@@ -10,8 +10,8 @@ locale-gen
 echo "LANG=en_GB.UTF-8" > /etc/locale.conf
 echo "KEYMAP=uk" > /etc/vconsole.conf
 
-read -p "Hostname: " hostname
-echo $HOSTNAME > /etc/hostname
+read -p "Hostname: " hostname2
+echo $hostname2 > /etc/hostname
 
 echo "Configuring sudo..."
 mkdir -p /etc/sudoers.
@@ -51,7 +51,7 @@ echo "Disabling root login..."
 passwd -l root
 
 echo "Adding login delay on fail..."
-echo "auth optional pam_faildelay.so delay=1000000" > /etc/pam.d/system-login
+echo "auth optional pam_faildelay.so delay=1000000" >> /etc/pam.d/system-login
 
 echo "Reboot, login, and then run 'sudo /root/stage3.sh' to complete setup.";
 
