@@ -42,7 +42,7 @@ mount $partname /mnt
 mount --mkdir $efiname /mnt/boot
 swapon $swapname
 
-packages="base git base-devel linux-hardened linux-firmware btrfs-progs networkmanager neovim sudo iptables zsh"
+packages="base git base-devel linux-hardened linux-firmware btrfs-progs networkmanager neovim sudo iptables zsh man-db"
 
 read -p "AMD? " -n 1 -r
 echo    # (optional) move to a new line

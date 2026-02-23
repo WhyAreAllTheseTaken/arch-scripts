@@ -20,7 +20,7 @@ mkdir -p /etc/sudoers.
 echo "%wheel      ALL=(ALL:ALL) ALL" > /etc/sudoers.d/10-wheel
 echo "installer   ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/20-installer
 
-echo "Creating a user for makepkg..."
+echo "Creating installer user..."
 useradd -m installer
 
 echo "Installing paru..."
@@ -30,16 +30,14 @@ chown -R installer paru
 cd paru
 su installer -c "makepkg -si"
 cd /root
-echo "Removing makepkg user"
-userdel -r installer
-rm /etc/sudoers.d/20-installer
 rm -rfv /tmp/paru
 
 echo "Configuring paru..."
 paru --gendb
+printf "\nSudoLoop\nBatchInstall\nSkipReview\n[custom]\nUrl = https://github.com/WhyAreAllTheseTaken/customrepo\nGenerateSrcInfo\n" >> /etc/paru.conf
 
 echo "Setting up grub..."
-paru --noconfirm -Sy grub efibootmgr grub-btrfs os-prober
+pacman --noconfirm -Sy grub efibootmgr grub-btrfs os-prober
 grub-install --target=x86_64-efi --efi-directory=/boot --removable --bootloader-id=GRUB --modules="tpm" --disable-shim-lock
 grub-mkconfig -o /boot/grub/grub.cfg
 

@@ -51,16 +51,30 @@ echo "Configuring network..."
 systemctl enable NetworkManager
 systemctl start NetworkManager
 
-echo "Installing additional packages.";
-paru -S why-shell 
+packages="why-shell"
 
-read -p "Graphical? " -n 1 -r
+read -p "Graphical? " -n 1 -r $graphical
 echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]
+if [[ $graphical =~ ^[Yy]$ ]]
 then
-    paru -S why-desktop why-terminal why-apps nvidia-open-dkms nvidia-utils
+    packages="$packages why-desktop why-terminal why-apps why-theme-ice nvidia-open-dkms nvidia-utils"
+fi
+
+echo "Installing additional packages.";
+su installer -c "paru -Sy $packages"
+
+echo "Setting X11 keyboard layout"
+localectl --no-convert set-x11-keymap gb
+
+echo "Enabling LightDM..."
+if [[ $graphical =~ ^[Yy]$ ]]
+then
     systemctl enable lightdm.service
 fi
+
+echo "Removing installer user"
+userdel -r installer
+rm /etc/sudoers.d/20-installer
 
 echo "Cleaning up..."
 rm /root/stage2.sh
