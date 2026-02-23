@@ -67,6 +67,9 @@ su installer -c "paru -Sy $packages"
 echo "Setting X11 keyboard layout"
 localectl --no-convert set-x11-keymap gb
 
+echo "Setting theme"
+why-theme ice
+
 echo "Enabling LightDM..."
 if [[ $graphical =~ ^[Yy]$ ]]
 then
