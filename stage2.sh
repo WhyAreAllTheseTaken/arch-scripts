@@ -7,7 +7,7 @@ efiname=$1
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 hwclock --systohc
 locale-gen
-echo "en_GB.UTF8" >> /etc/locale.gen
+echo "en_GB.UTF8 UTF-8\n" >> /etc/locale.gen
 locale-gen
 echo "LANG=en_GB.UTF-8" > /etc/locale.conf
 echo "KEYMAP=uk" > /etc/vconsole.conf
@@ -22,6 +22,11 @@ echo "installer   ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/20-installer
 
 echo "Creating installer user..."
 useradd -m installer
+
+echo "Installing rust".
+pacman -Sy rustup
+rustup default stable
+su installer -c "rustup default stable"
 
 echo "Installing paru..."
 cd /tmp
