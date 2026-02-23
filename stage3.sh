@@ -53,10 +53,11 @@ systemctl start NetworkManager
 
 packages="why-shell"
 
-read -p "Graphical? " -n 1 -r $graphical
+read -p "Graphical? " -n 1 -r graphical
 echo    # (optional) move to a new line
 if [[ $graphical =~ ^[Yy]$ ]]
 then
+    echo "Adding desktop environment to package list..."
     packages="$packages why-desktop why-terminal why-apps why-theme-ice nvidia-open-dkms nvidia-utils"
 fi
 
