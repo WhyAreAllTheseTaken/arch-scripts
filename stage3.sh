@@ -47,6 +47,18 @@ systemctl enable ip6tables.service
 systemctl start iptables.service
 systemctl start ip6tables.service
 
+echo "Configuring network..."
+systemctl enable NetworkManager
+systemctl start NetworkManager
+
+read -p "Graphical? " -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    paru -S hyprland lightdm lightdm-gtk-greeter nvidia-open-dkms nvidia-utils
+    systemctl enable lightdm.service
+fi
+
 echo "Cleaning up..."
 rm /root/stage2.sh
 rm /root/stage3.sh

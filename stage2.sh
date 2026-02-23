@@ -7,6 +7,8 @@ efiname=$1
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 hwclock --systohc
 locale-gen
+echo "en_GB.UTF8" >> /etc/locale.gen
+locale-gen
 echo "LANG=en_GB.UTF-8" > /etc/locale.conf
 echo "KEYMAP=uk" > /etc/vconsole.conf
 
@@ -21,23 +23,23 @@ echo "installer   ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/20-installer
 echo "Creating a user for makepkg..."
 useradd -m installer
 
-echo "Installing yay..."
+echo "Installing paru..."
 cd /tmp
-git clone https://aur.archlinux.org/yay-bin.git
-chown -R installer yay-bin
-cd yay-bin
+git clone https://aur.archlinux.org/paru.git
+chown -R installer paru
+cd paru
 su installer -c "makepkg -si"
 cd /root
 echo "Removing makepkg user"
 userdel -r installer
 rm /etc/sudoers.d/20-installer
-rm -rfv /tmp/yay-bin
+rm -rfv /tmp/paru
 
-echo "Configuring yay..."
-yay -Y --devel --save
+echo "Configuring paru..."
+paru --gendb
 
 echo "Setting up grub..."
-pacman --noconfirm -Sy grub efibootmgr grub-btrfs os-prober
+paru --noconfirm -Sy grub efibootmgr grub-btrfs os-prober
 grub-install --target=x86_64-efi --efi-directory=/boot --removable --bootloader-id=GRUB --modules="tpm" --disable-shim-lock
 grub-mkconfig -o /boot/grub/grub.cfg
 
