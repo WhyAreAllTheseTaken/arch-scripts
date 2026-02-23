@@ -51,11 +51,14 @@ echo "Configuring network..."
 systemctl enable NetworkManager
 systemctl start NetworkManager
 
+echo "Installing additional packages.";
+paru -S why-shell 
+
 read -p "Graphical? " -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    paru -S hyprland lightdm lightdm-gtk-greeter nvidia-open-dkms nvidia-utils
+    paru -S why-desktop why-terminal why-apps nvidia-open-dkms nvidia-utils
     systemctl enable lightdm.service
 fi
 
