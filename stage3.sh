@@ -56,8 +56,8 @@ packages="why-shell"
 read -p "Graphical? " -n 1 -r $graphical
 echo    # (optional) move to a new line
 if [[ $graphical =~ ^[Yy]$ ]]
-    packages="$packages why-desktop why-terminal why-apps why-theme-ice nvidia-open-dkms nvidia-utils"
 then
+    packages="$packages why-desktop why-terminal why-apps why-theme-ice nvidia-open-dkms nvidia-utils"
 fi
 
 echo "Installing additional packages.";
@@ -68,8 +68,8 @@ localectl --no-convert set-x11-keymap gb
 
 echo "Enabling LightDM..."
 if [[ $graphical =~ ^[Yy]$ ]]
-    systemctl enable lightdm.service
 then
+    systemctl enable lightdm.service
 fi
 
 echo "Removing installer user"
