@@ -39,7 +39,7 @@ rm -rfv /tmp/paru
 
 echo "Configuring paru..."
 paru --gendb
-printf "\nSudoLoop\nBatchInstall\nSkipReview\n[custom]\nUrl = https://github.com/WhyAreAllTheseTaken/customrepo\nGenerateSrcinfo\n" >> /etc/paru.conf
+printf "\nSudoLoop\nBatchInstall\n[custom]\nUrl = https://github.com/WhyAreAllTheseTaken/customrepo\nGenerateSrcinfo\n" >> /etc/paru.conf
 
 echo "Setting up grub..."
 pacman --noconfirm -Sy grub efibootmgr grub-btrfs os-prober
