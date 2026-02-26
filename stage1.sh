@@ -42,15 +42,7 @@ mount $partname /mnt
 mount --mkdir $efiname /mnt/boot
 swapon $swapname
 
-packages="base git base-devel linux-hardened linux-hardened-headers linux-hardened-docs dkms linux-firmware btrfs-progs networkmanager neovim sudo iptables zsh man-db pipewire pipewire-audio pipewire-pulse pipewire-jack"
-
-read -p "AMD? " -n 1 -r
-echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]
-    packages="$packages intel-ucode"
-then
-    packages="$packages amd-ucode"
-fi
+packages="base git base-devel linux-hardened linux-hardened-headers linux-hardened-docs dkms linux-firmware btrfs-progs networkmanager neovim sudo iptables zsh man-db pipewire pipewire-audio pipewire-pulse pipewire-docs"
 
 echo "Installing base..."
 pacstrap -K /mnt $packages
