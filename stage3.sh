@@ -70,15 +70,18 @@ localectl --no-convert set-x11-keymap gb
 echo "Setting theme"
 why-theme ice
 
+echo "Removing installer user"
+userdel -r installer
+rm /etc/sudoers.d/20-installer
+
+echo "Enabling Pipewire..."
+systemctl enable --user pipewire-pulse.service
+
 echo "Enabling LightDM..."
 if [[ $graphical =~ ^[Yy]$ ]]
 then
     systemctl enable lightdm.service
 fi
-
-echo "Removing installer user"
-userdel -r installer
-rm /etc/sudoers.d/20-installer
 
 echo "Cleaning up..."
 rm /root/stage2.sh
