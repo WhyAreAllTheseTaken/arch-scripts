@@ -8,6 +8,7 @@ ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 hwclock --systohc
 locale-gen
 printf "en_GB.UTF8 UTF-8\n" >> /etc/locale.gen
+printf "en_US.UTF8 UTF-8\n" >> /etc/locale.gen
 locale-gen
 echo "LANG=en_GB.UTF-8" > /etc/locale.conf
 echo "KEYMAP=uk" > /etc/vconsole.conf

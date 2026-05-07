@@ -51,18 +51,26 @@ echo "Configuring network..."
 systemctl enable NetworkManager
 systemctl start NetworkManager
 
-packages="why-shell"
+packages="why-shell ntp"
 
 read -p "Graphical? " -n 1 -r graphical
 echo    # (optional) move to a new line
 if [[ $graphical =~ ^[Yy]$ ]]
 then
     echo "Adding desktop environment to package list..."
-    packages="$packages why-desktop why-terminal why-apps why-theme-ice nvidia-open-dkms nvidia-utils"
+    packages="$packages why-desktop why-terminal why-apps why-theme-ice nvidia-open-dkms nvidia-utils mesa vulkan-intel"
 fi
 
 echo "Installing additional packages.";
-su installer -c "paru -Sy $packages"
+if ! su installer -c "paru -Sy $packages"; 
+then
+    read -p "Continue despite error? " -n 1 -r
+    echo    # (optional) move to a new line
+    if ! [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        exit 65
+    fi
+fi
 
 echo "Setting X11 keyboard layout"
 localectl --no-convert set-x11-keymap gb
@@ -73,9 +81,6 @@ why-theme ice
 echo "Removing installer user"
 userdel -r installer
 rm /etc/sudoers.d/20-installer
-
-echo "Enabling Pipewire..."
-systemctl enable --user pipewire-pulse.service
 
 echo "Enabling LightDM..."
 if [[ $graphical =~ ^[Yy]$ ]]
