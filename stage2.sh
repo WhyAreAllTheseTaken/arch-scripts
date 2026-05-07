@@ -24,6 +24,10 @@ echo "installer   ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/20-installer
 echo "Creating installer user..."
 useradd -m installer
 
+echo "Configuring pacman..."
+printf "\n[multilib]\n" >> /etc/pacman.conf
+printf "Include = /etc/pacman.d/mirrorlist\n" >> /etc/pacman.conf
+
 echo "Installing rust".
 pacman -Sy rustup
 rustup default stable
