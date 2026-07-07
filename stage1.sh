@@ -42,7 +42,7 @@ mount $partname /mnt
 mount --mkdir $efiname /mnt/boot
 swapon $swapname
 
-packages="base git base-devel linux-hardened linux-hardened-headers linux-hardened-docs dkms linux-firmware sof-firmware btrfs-progs networkmanager neovim sudo iptables zsh man-db pipewire pipewire-audio pipewire-pulse pipewire-docs"
+packages="base git base-devel linux-hardened linux-hardened-headers linux-hardened-docs dkms linux-firmware sof-firmware btrfs-progs networkmanager iw wireless-regdb neovim sudo iptables zsh man-db pipewire pipewire-audio pipewire-pulse pipewire-docs"
 
 echo "Installing base..."
 pacstrap -K /mnt $packages
